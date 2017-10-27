@@ -33,6 +33,8 @@ Gem::Specification.new do |s|
   s.add_dependency "listen", "~> 3.1"
   s.add_dependency "i18n-tasks", "0.9.18"
   s.add_dependency "poltergeist", "~> 1.16"
+  s.add_dependency "selenium-webdriver", "~> 3.7"
+  s.add_dependency "chromedriver-helper", "~> 1.1"
   s.add_dependency "rails-controller-testing", "~> 1.0"
   s.add_dependency "simplecov", "~> 0.13"
   s.add_dependency "codecov", "~> 0.1.9"
