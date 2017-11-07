@@ -2,7 +2,7 @@ version: 2
 
 defaults: &defaults
   docker:
-    - image: codegram/decidim:test-$CIRCLE_SHA1
+    - image: deividrodriguez/decidim:test-$CIRCLE_SHA1
       environment:
         SIMPLECOV: true
         DATABASE_USERNAME: postgres
@@ -27,24 +27,24 @@ jobs:
       - run:
           name: Build, tag and push docker production image
           command: |
-            docker pull codegram/decidim:latest
+            docker pull deividrodriguez/decidim:latest
             if [ $CIRCLE_BRANCH = 'master' ]; then
-              docker build --tag codegram/decidim:prod-$CIRCLE_SHA1 --tag codegram/decidim:latest .
-              docker push codegram/decidim:latest
+              docker build --tag deividrodriguez/decidim:prod-$CIRCLE_SHA1 --tag deividrodriguez/decidim:latest .
+              docker push deividrodriguez/decidim:latest
             else
-              docker build --tag codegram/decidim:prod-$CIRCLE_SHA1 --cache-from codegram/decidim:latest .
+              docker build --tag deividrodriguez/decidim:prod-$CIRCLE_SHA1 --cache-from deividrodriguez/decidim:latest .
             fi
       - run:
           name: Build, tag and push docker test image
           command: |
-            docker pull codegram/decidim:test-latest
+            docker pull deividrodriguez/decidim:test-latest
             if [ $CIRCLE_BRANCH = 'master' ]; then
-              docker build -f Dockerfile.ci --build-arg BASE_IMAGE_TAG=prod-$CIRCLE_SHA1 --tag codegram/decidim:test-$CIRCLE_SHA1 --tag codegram/decidim:test-latest .
-              docker push codegram/decidim:test-latest
+              docker build -f Dockerfile.ci --build-arg BASE_IMAGE_TAG=prod-$CIRCLE_SHA1 --tag deividrodriguez/decidim:test-$CIRCLE_SHA1 --tag deividrodriguez/decidim:test-latest .
+              docker push deividrodriguez/decidim:test-latest
             else
-              docker build -f Dockerfile.ci --build-arg BASE_IMAGE_TAG=prod-$CIRCLE_SHA1 --tag codegram/decidim:test-$CIRCLE_SHA1 --cache-from codegram/decidim:test-latest .
+              docker build -f Dockerfile.ci --build-arg BASE_IMAGE_TAG=prod-$CIRCLE_SHA1 --tag deividrodriguez/decidim:test-$CIRCLE_SHA1 --cache-from deividrodriguez/decidim:test-latest .
             fi
-            docker push codegram/decidim:test-$CIRCLE_SHA1
+            docker push deividrodriguez/decidim:test-$CIRCLE_SHA1
       - persist_to_workspace:
           root: .
           paths:
