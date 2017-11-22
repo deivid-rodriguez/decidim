@@ -17,6 +17,9 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - run:
+          name: Bundler workaround
+          command: gem uninstall --all --executables --force --install-dir /usr/local/lib/ruby/gems/2.4.0 bundler && gem install bundler --version 1.15.4
       - restore_cache:
           keys:
             - bundler-dependencies-{{ checksum "Gemfile.lock" }}
@@ -54,6 +57,9 @@ jobs:
       - attach_workspace:
           at: /app
       - checkout
+      - run:
+          name: Bundler workaround
+          command: gem uninstall --all --executables --force --install-dir /usr/local/lib/ruby/gems/2.4.0 bundler && gem install bundler --version 1.15.4
       - restore_cache:
           keys:
             - bundler-dependencies-{{ checksum "Gemfile.lock" }}
